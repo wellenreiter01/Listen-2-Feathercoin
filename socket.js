@@ -51,9 +51,9 @@ TransactionSocket.init = function() {
         StatusBox.connected("blockchain");
         console.log('connected, joining room!');
         socket.emit('subscribe', room);
-        toggleInterface();        
+        toggleInterface();     
     })
-		//var connection = new ReconnectingWebSocket('ws://ws.blockchain.info:8335/inv');
+		//var connection = new ReconnectingWebSocket('ws://ws.lockchain.info:8335/inv');
 		//socket = connection;
            
 
@@ -78,7 +78,7 @@ TransactionSocket.init = function() {
 		socket.on ('close', function() {
             //show interface
             toggleInterface();
-			console.log('Blockchain.info: Connection closed');
+			console.log('Blockchain: Connection closed');
 			if ($("#blockchainCheckBox").prop("checked"))
 				StatusBox.reconnecting("blockchain");
 			else
@@ -86,7 +86,7 @@ TransactionSocket.init = function() {
 		})
 
 		socket.on('error', function(error) {
-			console.log('Blockchain.info: Connection Error: ' + error);
+			console.log('Blockchain: Connection Error: ' + error);
 		})
 
         var transacted = 0;

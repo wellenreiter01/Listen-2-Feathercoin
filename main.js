@@ -58,18 +58,42 @@ $(document).ready(function() {
 });
 
 // Function for handling interface show/hide
+
+var enterFullscreen = function(element) {
+  if(element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if(element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } else if(element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
+}
+
+var exitFullscreen=function() {
+  if(document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if(document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if(document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  }
+}
+
 var toggleInterface = function() {
 	if ($(".interface:hidden").length === 0) {
 		$(".interface").fadeOut(500);
 		$("#hideInterface").html("[ Show Interface ]");
 		$("#hideInterface").css("opacity", "0.5");
-        
-        
+        enterFullscreen(document.documentElement);
         
 	} else {
+        
 		$(".interface").fadeIn(500);
 		$("#hideInterface").html("[ Hide Interface ]");
 		$("#hideInterface").css("opacity", "1");
+        exitFullscreen();
         
         
 	}
@@ -100,6 +124,7 @@ var globalUpdate = function() {
 
 
 window.onbeforeunload = function(e) {
+    exitFullscreen();
 	clearInterval(globalUpdate);
 	TransactionSocket.close();
 	TradeSocket.close();
