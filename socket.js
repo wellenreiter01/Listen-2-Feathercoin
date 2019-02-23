@@ -39,7 +39,8 @@ TransactionSocket.init = function() {
     
     
     var client = new HttpClient();
-    var fsightServer = "http://wb2:3001/";
+//    var fsightServer = "http://wb2:3001/";
+    var fsightServer = "http://explorer.feathercoin.com/";
     
     var socket = io(fsightServer);
     console.log('connecting to fsight....');
@@ -117,7 +118,7 @@ TransactionSocket.init = function() {
             socket.on(eventNewBlock, function(data) {
                 var apiRasponse;
                 console.log("newBlock "+data+" transacted: "+transacted);
-                client.get(fsightServer+'insight-api/block/'+data, function(apiResponse) {
+                client.get(fsightServer+'block/'+data, function(apiResponse) {
                     var json=JSON.parse(apiResponse);
                     console.log(json.height+"..."+json.size);
                     new Block(json.height, transactions, transacted, json.size);
